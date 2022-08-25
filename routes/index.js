@@ -8,7 +8,8 @@ const router = express.Router();
 const Url = require('../models/url');
 
 router.get('/', (req, res, next) => {
-    res.sendFile(path.resolve('index.html'));
+    // res.sendFile(path.resolve('index.html'));
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 })
 
 router.get('/*', async (req, res, next) => {
