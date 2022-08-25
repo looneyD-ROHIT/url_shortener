@@ -14,7 +14,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const PORT = 3000 || process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use('/', require('./routes/index'));
 app.use('/api/url', require('./routes/url'));
