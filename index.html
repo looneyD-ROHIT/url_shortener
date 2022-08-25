@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <title>URL SHORTENER</title>
+    <style>
+      .content {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 70px;
+      }
+      .input {
+        background-color: #fff;
+        min-height: 30px;
+        min-width: 500px;
+        font-size: 14pt;
+      }
+
+      .button {
+        margin-top: 10px;
+        float: right;
+        background-color: green;
+        color: white;
+        height: 30px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <input
+        type="text"
+        class="input"
+        placeholder="Enter a Valid URL"
+        id="urlInput"
+      />
+      <button class="button" id="btn">Shorten URL</button>
+    </div>
+    <div class="content">
+      <a href="" target="_blank" class="view"></a>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const btn = document.getElementById("btn");
+    const execute = async (e) => {
+      e.preventDefault();
+      const longUrl = document.getElementById("urlInput").value;
+      console.log(longUrl);
+      let res = await fetch("/api/url/shorten", {
+        method: "POST",
+        body: JSON.stringify({ longUrl: longUrl }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      res = await res.json();
+      const view = document.getElementsByClassName("view")[0];
+      console.log(view);
+      view.textContent = res.shortUrl;
+      view.setAttribute("href", res.shortUrl);
+    };
+    btn.addEventListener("click", execute);
+  </script>
+</html>
